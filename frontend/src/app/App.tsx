@@ -1,7 +1,10 @@
 import { Route, Routes } from 'react-router-dom'
 import { MainLayout } from '../components/layout/MainLayout'
+import { AuthUser, LoginModal } from '../components/ui/LoginModal'
+import { ComponentsPage } from '../pages/ComponentsPage'
 import { HomePage } from '../pages/HomePage'
 import { PlaceholderPage } from '../pages/PlaceholderPage'
+import { useState } from 'react'
 
 const routes = [
   { path: '/enterprise/storage', title: '企业管理 / 仓储' },
@@ -20,14 +23,24 @@ const routes = [
 ]
 
 export function App() {
+  const [user, setUser] = useState<AuthUser | null>(null)
+
   return (
-    <MainLayout>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        {routes.map((item) => (
-          <Route key={item.path} path={item.path} element={<PlaceholderPage title={item.title} />} />
-        ))}
-      </Routes>
-    </MainLayout>
+    <>
+      <MainLayout userName={user?.username}>
+        <Routes>
+          <Route
+            path="/"
+            element={user ? <HomePage user={user} onAvatarUploaded={(avatarUrl) => setUser((prev) => (prev ? { ...prev, avatarUrl } : prev))} /> : <PlaceholderPage title="请先登录" />}
+          />
+          <Route path="/components" element={<ComponentsPage />} />
+          {routes.map((item) => (
+            <Route key={item.path} path={item.path} element={<PlaceholderPage title={item.title} />} />
+          ))}
+        </Routes>
+      </MainLayout>
+
+      <LoginModal isOpen={!user} onSuccess={setUser} />
+    </>
   )
 }

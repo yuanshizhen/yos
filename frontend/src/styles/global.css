@@ -3,33 +3,45 @@
 @tailwind utilities;
 
 :root {
-  --bg0: #06070b;
-  --bg1: #0b0f17;
-  --panel: rgba(255, 255, 255, 0.06);
-  --stroke: rgba(255, 255, 255, 0.12);
-  --text: #e9eefb;
-  --muted: rgba(233, 238, 251, 0.65);
-  --shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
-  --blur: 16px;
-  --navH: 74px;
+  --bg0: #eff4ff;
+  --bg1: #f8fbff;
+  --text: #0f172a;
+  --stroke: rgba(255, 255, 255, 0.8);
   --font: ui-sans-serif, system-ui, -apple-system, 'SF Pro Display', 'SF Pro Text', 'PingFang SC', 'Microsoft YaHei', Arial, sans-serif;
+  --navH: 74px;
 }
 
-* { box-sizing: border-box; }
-html, body, #root { height: 100%; }
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
 body {
   margin: 0;
   font-family: var(--font);
   color: var(--text);
   background:
-    radial-gradient(1200px 700px at 15% 10%, rgba(124, 92, 255, 0.22), transparent 55%),
-    radial-gradient(900px 600px at 75% 18%, rgba(55, 214, 255, 0.18), transparent 55%),
-    radial-gradient(900px 600px at 60% 85%, rgba(85, 255, 176, 0.1), transparent 55%),
+    radial-gradient(1200px 700px at 10% 10%, rgba(167, 139, 250, 0.26), transparent 55%),
+    radial-gradient(1000px 580px at 80% 16%, rgba(125, 211, 252, 0.26), transparent 52%),
+    radial-gradient(800px 400px at 64% 84%, rgba(52, 211, 153, 0.14), transparent 56%),
     linear-gradient(180deg, var(--bg0), var(--bg1));
 }
 
-*::-webkit-scrollbar { width: 10px; height: 10px; }
-*::-webkit-scrollbar-thumb { border-radius: 999px; background-color: rgba(255,255,255,.2); }
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+*::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  background: linear-gradient(180deg, rgba(148, 163, 184, 0.6), rgba(125, 211, 252, 0.7));
+}
 
 .glass-topbar {
   position: fixed;
@@ -49,13 +61,108 @@ body {
   height: 100%;
   border-radius: 999px;
   border: 1px solid var(--stroke);
-  background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.05));
-  backdrop-filter: blur(var(--blur));
-  box-shadow: 0 10px 30px rgba(0,0,0,.35);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0.62));
+  backdrop-filter: blur(18px);
+  box-shadow: 0 14px 40px rgba(148, 163, 184, 0.25);
+}
+
+.logo-bubble {
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  background:
+    radial-gradient(18px 18px at 24% 22%, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0) 56%),
+    linear-gradient(135deg, rgba(196, 181, 253, 0.95), rgba(103, 232, 249, 0.95));
+  box-shadow: 0 10px 24px rgba(125, 211, 252, 0.4);
+  animation: floatY 3s ease-in-out infinite;
+}
+
+.dropdown-shell {
+  animation: riseUp 0.28s ease-out;
 }
 
 .glass-main {
   padding-top: calc(var(--navH) + 18px);
   width: min(1320px, calc(100% - 26px));
   margin: 0 auto;
+}
+
+.content-blur {
+  filter: blur(3px) saturate(0.95);
+  transform: scale(0.995);
+}
+
+.glass-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-card::after {
+  content: '';
+  position: absolute;
+  inset: -40% auto auto -10%;
+  width: 45%;
+  height: 180%;
+  transform: rotate(20deg);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+  animation: shimmer 3.8s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-120%) rotate(20deg);
+  }
+  100% {
+    transform: translateX(360%) rotate(20deg);
+  }
+}
+
+@keyframes riseUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes floatIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes pulseLite {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.04);
+    opacity: 0.82;
+  }
+}
+
+@keyframes floatY {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+@media (max-width: 768px) {
+  .glass-main {
+    width: min(1320px, calc(100% - 16px));
+  }
 }
