@@ -7,7 +7,9 @@
   --bg1: #f8fbff;
   --text: #0f172a;
   --stroke: rgba(255, 255, 255, 0.8);
-  --font: ui-sans-serif, system-ui, -apple-system, 'SF Pro Display', 'SF Pro Text', 'PingFang SC', 'Microsoft YaHei', Arial, sans-serif;
+  --font:
+    ui-sans-serif, system-ui, -apple-system, "SF Pro Display", "SF Pro Text",
+    "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
   --navH: 74px;
 }
 
@@ -26,9 +28,21 @@ body {
   font-family: var(--font);
   color: var(--text);
   background:
-    radial-gradient(1200px 700px at 10% 10%, rgba(167, 139, 250, 0.26), transparent 55%),
-    radial-gradient(1000px 580px at 80% 16%, rgba(125, 211, 252, 0.26), transparent 52%),
-    radial-gradient(800px 400px at 64% 84%, rgba(52, 211, 153, 0.14), transparent 56%),
+    radial-gradient(
+      1200px 700px at 10% 10%,
+      rgba(167, 139, 250, 0.26),
+      transparent 55%
+    ),
+    radial-gradient(
+      1000px 580px at 80% 16%,
+      rgba(125, 211, 252, 0.26),
+      transparent 52%
+    ),
+    radial-gradient(
+      800px 400px at 64% 84%,
+      rgba(52, 211, 153, 0.14),
+      transparent 56%
+    ),
     linear-gradient(180deg, var(--bg0), var(--bg1));
 }
 
@@ -40,7 +54,11 @@ body {
 *::-webkit-scrollbar-thumb {
   border-radius: 999px;
   border: 2px solid rgba(255, 255, 255, 0.8);
-  background: linear-gradient(180deg, rgba(148, 163, 184, 0.6), rgba(125, 211, 252, 0.7));
+  background: linear-gradient(
+    180deg,
+    rgba(148, 163, 184, 0.6),
+    rgba(125, 211, 252, 0.7)
+  );
 }
 
 .glass-topbar {
@@ -61,7 +79,11 @@ body {
   height: 100%;
   border-radius: 999px;
   border: 1px solid var(--stroke);
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0.62));
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.88),
+    rgba(255, 255, 255, 0.62)
+  );
   backdrop-filter: blur(18px);
   box-shadow: 0 14px 40px rgba(148, 163, 184, 0.25);
 }
@@ -71,14 +93,32 @@ body {
   height: 36px;
   border-radius: 12px;
   background:
-    radial-gradient(18px 18px at 24% 22%, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0) 56%),
-    linear-gradient(135deg, rgba(196, 181, 253, 0.95), rgba(103, 232, 249, 0.95));
+    radial-gradient(
+      18px 18px at 24% 22%,
+      rgba(255, 255, 255, 0.92),
+      rgba(255, 255, 255, 0) 56%
+    ),
+    linear-gradient(
+      135deg,
+      rgba(196, 181, 253, 0.95),
+      rgba(103, 232, 249, 0.95)
+    );
   box-shadow: 0 10px 24px rgba(125, 211, 252, 0.4);
   animation: floatY 3s ease-in-out infinite;
 }
 
 .dropdown-shell {
-  animation: riseUp 0.28s ease-out;
+  animation: riseUp 0.25s ease-out;
+}
+
+.menu-lv2-item,
+.menu-lv3-item,
+.avatar-menu-item {
+  animation: menuFadeIn 0.3s ease-out;
+}
+
+.avatar-menu {
+  animation: riseUp 0.2s ease-out;
 }
 
 .glass-main {
@@ -87,9 +127,10 @@ body {
   margin: 0 auto;
 }
 
-.content-blur {
-  filter: blur(3px) saturate(0.95);
-  transform: scale(0.995);
+.content-muted {
+  opacity: 0.56;
+  filter: saturate(0.85);
+  transform: scale(0.997);
 }
 
 .glass-card {
@@ -98,14 +139,74 @@ body {
 }
 
 .glass-card::after {
-  content: '';
+  content: "";
   position: absolute;
   inset: -40% auto auto -10%;
   width: 45%;
   height: 180%;
   transform: rotate(20deg);
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.35),
+    transparent
+  );
   animation: shimmer 3.8s ease-in-out infinite;
+}
+
+.toast-wrap {
+  position: fixed;
+  right: 22px;
+  bottom: 24px;
+  z-index: 120;
+}
+
+.toast-shell {
+  min-width: 300px;
+  max-width: 360px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.88);
+  box-shadow: 0 16px 45px rgba(15, 23, 42, 0.2);
+  backdrop-filter: blur(14px);
+  animation: toastIn 0.24s ease-out;
+}
+
+.toast-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+}
+
+.toast-message {
+  margin: 0;
+  flex: 1;
+  font-size: 12px;
+  color: #1e293b;
+}
+
+.toast-close {
+  border: 0;
+  background: transparent;
+  font-size: 16px;
+  color: #64748b;
+  cursor: pointer;
+}
+
+.toast-error .toast-dot {
+  background: #ef4444;
+}
+
+.toast-success .toast-dot {
+  background: #22c55e;
+}
+
+.toast-info .toast-dot {
+  background: #0ea5e9;
 }
 
 @keyframes shimmer {
@@ -128,7 +229,18 @@ body {
   }
 }
 
-@keyframes floatIn {
+@keyframes menuFadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes toastIn {
   from {
     opacity: 0;
     transform: translateY(8px) scale(0.98);
@@ -139,15 +251,14 @@ body {
   }
 }
 
-@keyframes pulseLite {
-  0%,
-  100% {
-    transform: scale(1);
-    opacity: 1;
+@keyframes floatIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
   }
-  50% {
-    transform: scale(1.04);
-    opacity: 0.82;
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
   }
 }
 
@@ -164,5 +275,16 @@ body {
 @media (max-width: 768px) {
   .glass-main {
     width: min(1320px, calc(100% - 16px));
+  }
+
+  .toast-wrap {
+    right: 12px;
+    left: 12px;
+    bottom: 14px;
+  }
+
+  .toast-shell {
+    min-width: 0;
+    max-width: none;
   }
 }
